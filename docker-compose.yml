@@ -6,7 +6,8 @@ services:
     ports:
       - "5000:5000"                 # host:container port mapping
     depends_on:
-      - db                          # wait for db service to start (service name)
+        db:                          # wait for db service to start (service name)
+          condition: service_healthy        # wait for db to be healthy (optional)
     environment:
       MYSQL_HOST: mysqldb           # can use container name or service name
       MYSQL_USER: root              # mysql user
@@ -22,7 +23,13 @@ services:
       MYSQL_ROOT_PASSWORD: password # mysql root password
       MYSQL_DATABASE: devops_db     # database name to create
     ports:
-      - "3306:3306"                 # host:container port mapping
+      - "3306:3306"                # host:container port mapping
+    healthcheck:                   # optional health check to ensure db is ready before web starts
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # bind mount (runs once on first start)
       - myvolume:/var/lib/mysql                              # named volume (persistent storage)
