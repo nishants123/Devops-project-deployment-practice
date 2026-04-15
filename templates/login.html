@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+  <section class="form-panel">
+    <h2>Sign In</h2>
+    <form method="post" action="/login">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="you@example.com" required />
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter password" required />
+
+      <button class="button button-primary" type="submit">Login</button>
+    </form>
+    <p class="form-note">Need an account? <a href="/register">Register now</a>.</p>
+  </section>
+{% endblock %}

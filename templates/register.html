@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+  <section class="form-panel">
+    <h2>Create Account</h2>
+    <form method="post" action="/register">
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Your full name" required />
+
+      <label>Email</label>
+      <input type="email" name="email" placeholder="you@example.com" required />
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter password" required />
+
+      <label>Confirm Password</label>
+      <input type="password" name="confirm" placeholder="Repeat password" required />
+
+      <button class="button button-primary" type="submit">Register</button>
+    </form>
+    <p class="form-note">Already have an account? <a href="/login">Login here</a>.</p>
+  </section>
+{% endblock %}

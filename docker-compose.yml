@@ -1,0 +1,31 @@
+services:
+
+  web:                              # service name (mandatory)
+    container_name: webapp          # container name (optional/human readable)
+    build: .                        # build from local Dockerfile
+    ports:
+      - "5000:5000"                 # host:container port mapping
+    depends_on:
+      - db                          # wait for db service to start (service name)
+    environment:
+      MYSQL_HOST: mysqldb           # can use container name or service name
+      MYSQL_USER: root              # mysql user
+      MYSQL_PASSWORD: password      # mysql password
+      MYSQL_DATABASE: devops_db     # database name
+      MYSQL_PORT: 3306              # mysql port
+
+  db:                               # service name (mandatory)
+    container_name: mysqldb         # container name (optional/human readable)
+    image: mysql:latest             # pull mysql image from docker hub
+    restart: always                 # restart container if it crashes
+    environment:
+      MYSQL_ROOT_PASSWORD: password # mysql root password
+      MYSQL_DATABASE: devops_db     # database name to create
+    ports:
+      - "3306:3306"                 # host:container port mapping
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # bind mount (runs once on first start)
+      - myvolume:/var/lib/mysql                              # named volume (persistent storage)
+
+volumes:
+  myvolume:                         # declare named volume at root level (Docker manages this)

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+  <section class="dashboard-panel">
+    <h2>Welcome, {{ name }}!</h2>
+    <p>You are successfully logged in. This is your simple DevOps login dashboard.</p>
+    <div class="dashboard-actions">
+      <a class="button button-secondary" href="/logout">Logout</a>
+      <a class="button button-primary" href="/">Back to Home</a>
+    </div>
+  </section>
+{% endblock %}
