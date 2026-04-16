@@ -23,7 +23,7 @@ jobs:
 
       # 4. Build images using docker-compose
       - name: Build Docker Images
-        run: docker-compose build
+        run: docker compose build
 
       # 5. Push images
       - name: Push Docker Images
