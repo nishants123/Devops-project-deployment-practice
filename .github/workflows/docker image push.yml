@@ -27,5 +27,5 @@ jobs:
         run: docker compose build
 
       # 5. Push images
-      - name: Push Docker Images
+      - name: Push Docker Images in docker hub
         run: docker compose push

@@ -3,6 +3,7 @@ services:
   web:                              # service name (mandatory)
     container_name: webapp          # container name (optional/human readable)
     build: .                        # build from local Dockerfile
+    image: ${{ secrets.DOCKER_USERNAME }}/pythonapp:latest
     ports:
       - "5000:5000"                 # host:container port mapping
     depends_on:
