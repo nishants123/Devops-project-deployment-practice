@@ -30,5 +30,7 @@ jobs:
 
       # 5. Push images
       - name: Push Docker Images
-        run: docker push nishantsahu123/python_application
-  
+        # run: docker tag local-image:tagname new-repo:tagname
+
+      - name: Push to Docker Hub repo
+        run: docker compose push
