@@ -1,14 +1,15 @@
 name: docker build image and push to docker repo
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Python application"]   # must match test workflow name
+    types:
+      - completed
 
 jobs:
   docker:
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
       runs-on: ubuntu-latest
-
       steps:
       # 1. Checkout code
       - name: Checkout code
