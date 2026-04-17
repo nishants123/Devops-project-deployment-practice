@@ -14,7 +14,7 @@ permissions:
 
 # Defines all the jobs in this workflow
 jobs:
-  build:                                    # job name (referenced by other workflows)
+  test:                                    # job name (referenced by other workflows)
     runs-on: ubuntu-latest                  # uses the latest Ubuntu virtual machine as the runner
 
     steps:

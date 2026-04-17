@@ -10,7 +10,7 @@ on:
 
 # Defines all jobs in this workflow
 jobs:
-  docker:
+  Image build and docker push:                                  # job name (referenced by other workflows)
       if: ${{ github.event.workflow_run.conclusion == 'success' }}  # only runs if the trigger workflow succeeded
       runs-on: ubuntu-latest                # uses the latest Ubuntu virtual machine as the runner
 
