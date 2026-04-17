@@ -1,40 +1,42 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
+# GitHub Actions workflow to install dependencies, lint, and test a Python application
 name: Python application
 
+# Defines the events that trigger this workflow
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]                    # triggers on push to main branch
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ]                    # triggers on pull request targeting main branch
 
+# Sets the permissions granted to the GITHUB_TOKEN for this workflow
 permissions:
-  contents: read
+  contents: read                            # read-only access to repository contents
 
+# Defines all the jobs in this workflow
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  build:                                    # job name (referenced by other workflows)
+    runs-on: ubuntu-latest                  # uses the latest Ubuntu virtual machine as the runner
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - uses: actions/checkout@v4             # pulls the repository code into the runner
+
+    - name: Set up Python 3.10              # step name shown in GitHub Actions UI
+      uses: actions/setup-python@v3        # uses the official Python setup action
       with:
-        python-version: "3.10"
-    - name: Install dependencies
+        python-version: "3.10"             # pins the Python version to 3.10
+
+    - name: Install dependencies            # step name shown in GitHub Actions UI
       run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+        python -m pip install --upgrade pip                                              # upgrades pip to the latest version
+        pip install flake8 pytest                                                        # installs linting and testing tools
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi            # installs project deps if requirements.txt exists
+
+    - name: Lint with flake8                # step name shown in GitHub Actions UI
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics             # fails build on syntax errors or undefined names
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics  # broader lint check, treated as warnings (non-blocking)
+
+    - name: Test with pytest                # step name shown in GitHub Actions UI
       env:
-       PYTHONPATH: .
-      run: pytest -v
+        PYTHONPATH: .                       # adds project root to Python path so local modules can be imported
+      run: pytest -v                        # runs all tests in verbose mode to show individual test results
