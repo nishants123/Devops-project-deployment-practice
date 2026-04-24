@@ -18,7 +18,7 @@ services:
 
   db:                               # service name (mandatory)
     container_name: mysqldb         # container name (optional/human readable)
-    image: mysql:latest             # pull mysql image from docker hub
+    image: mysql:8.0.36            # pull mysql image from docker hub
     restart: always                 # restart container if it crashes
     environment:
       MYSQL_ROOT_PASSWORD: password # mysql root password
